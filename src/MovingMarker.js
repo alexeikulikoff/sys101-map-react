@@ -22,10 +22,14 @@ L.interpolatePosition = function(p1, p2, duration, t) {
         autostart: false,
         loop: false,
     },
-
-    initialize: function (latlngs, durations, options) {
+	
+	
+    initialize: function (latlngs, durations, id, options) {
+	
+	
         L.Marker.prototype.initialize.call(this, latlngs[0], options);
 
+	
         this._latlngs = latlngs.map(function(e, index) {
             return L.latLng(e);
         });
@@ -47,8 +51,12 @@ L.interpolatePosition = function(p1, p2, duration, t) {
         this._animRequested = false;
         this._currentLine = [];
         this._stations = {};
+		this._id = id;
     },
-
+	
+	getId: function(){
+		return this._id;
+	},
     isRunning: function() {
         return this._state === L.Marker.MovingMarker.runState;
     },
@@ -301,8 +309,8 @@ L.interpolatePosition = function(p1, p2, duration, t) {
     }
 });
 
-export default function MovingMarker(latlngs, duration, options) {
-    return new L.Marker.MovingMarker(latlngs, duration, options);
+export default function MovingMarker(latlngs, duration, id, options) {
+    return new L.Marker.MovingMarker(latlngs, duration, id, options);
 };
 
 
